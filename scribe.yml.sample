@@ -1,0 +1,10 @@
+---
+secret: AbcdEFg1234
+realname: Scribe Bot
+nick: scribe_bot
+server: irc.freenode.net
+port: 6667
+channels:
+- "#heroku"
+- "#sinatra"
+- "#ruby-lang"

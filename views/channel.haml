@@ -1,0 +1,12 @@
+%table
+  %tr
+    %th time
+    %th nick
+    %th host
+    %th message
+  - @messages.each do |message|
+    %tr
+      %td= message.created_at
+      %td= message.nick
+      %td= message.userhost
+      %td= message.message
