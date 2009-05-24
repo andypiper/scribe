@@ -7,5 +7,5 @@ server: irc.freenode.net
 port: 6667
 channels:
 - "#commonthread"
-- "#sinatra"
-- "#ruby-lang"
+- "#rubyham"
+- "#rubyjax"
