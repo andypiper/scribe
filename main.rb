@@ -4,7 +4,7 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-timestamps'
 
-DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite3:///#{Dir.pwd}/irclog.sqlite3"))
+DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite3:///#{Dir.pwd}/scribe.sqlite3"))
 
 class Message
   include DataMapper::Resource
@@ -18,21 +18,9 @@ class Message
   property :updated_at, DateTime
 end
 
-class ConfigStore
-  include DataMapper::Resource
-
-  property :id, Integer, :serial => true  #primary serial key
-  property :name, Text, :nullable => false #cannot be null
-  property :data, Text, :nullable => false #cannot be null
-end
-
 DataMapper.auto_upgrade!
 
-if config_item = ConfigStore.first(:name => 'scribe.yml')
-  config = Yaml.load(config_item.data)
-else
-  config = YAML.load(open('scribe.yml').read)
-end
+config = YAML.load(open('scribe.yml').read)
 
 # new
 get '/' do
