@@ -18,16 +18,17 @@ class Message
   property :updated_at, DateTime
 end
 
-class Config
+class ConfigStore
   include DataMapper::Resource
 
   property :id, Integer, :serial => true  #primary serial key
+  property :name, Text, :nullable => false #cannot be null
   property :data, Text, :nullable => false #cannot be null
 end
 
 DataMapper.auto_upgrade!
 
-if config_item = Config.first
+if config_item = ConfigStore.first(:name => 'scribe.yml')
   config = Yaml.load(config_item.data)
 else
   config = YAML.load(open('scribe.yml').read)
