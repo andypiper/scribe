@@ -33,6 +33,12 @@ get '/channel/:channel' do
   haml :channel
 end
 
+# nick
+get '/nick/:nick' do
+  @messages = Message.all(:nick => "#{params[:nick]}")
+  haml :nick
+end
+
 # create
 post '/log' do
   @message = Message.new(:nick => params[:nick],

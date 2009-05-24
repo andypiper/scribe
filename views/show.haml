@@ -1,4 +1,9 @@
-%p== nick: #{@message.nick}
+%p== time: #{@message.created_at.strftime('%m/%d/%Y %I:%M&nbsp;%p')}
+%p
+  nick:
+  %a{:href => "/nick/#{@message.nick}"}= @message.nick
 %p== userhost: #{@message.userhost}
-%p== channel: #{@message.channel}
+%p
+  channel:
+  %a{:href => "/channel/#{@message.channel.gsub('#', '')}"}= @message.channel
 %p== message: #{@message.message}
