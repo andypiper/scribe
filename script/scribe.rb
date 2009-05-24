@@ -21,7 +21,7 @@ on :connect do
 end
 
 on :channel, /.*/ do
-  Net::HTTP.post_form(URI.parse('http://localhost:4567/log'),
+  Net::HTTP.post_form(URI.parse("#{config['app_url']}/log"),
                       {
                         :secret => config['secret'],
                         :nick => nick,

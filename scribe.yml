@@ -1,0 +1,11 @@
+---
+secret: d64gf7sg3
+app_url: 'http://localhost:4567'
+realname: CommonThread Scribe
+nick: ct_scribe
+server: irc.freenode.net
+port: 6667
+channels:
+- "#commonthread"
+- "#sinatra"
+- "#ruby-lang"
