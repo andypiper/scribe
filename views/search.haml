@@ -1,0 +1,16 @@
+%table
+  %tr
+    %th time
+    %th channel
+    %th nick
+    %th message
+  - @messages.each do |message|
+    %tr
+      %td
+        %a{:href => "/#{message.id}"}= message.created_at.strftime('%I:%M&nbsp;%p')
+      %td
+        %a{:href => "/channel/#{message.channel.gsub('#', '')}"}= message.channel
+      %td
+        %a{:href => "/nick/#{message.nick}"}= message.nick
+      %td= message.message
+

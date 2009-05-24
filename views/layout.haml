@@ -1,0 +1,10 @@
+%h1{:style => 'float: left; margin-right: 20px;'}
+  %a{:href => '/'}Scribe
+
+.search
+  %form{:action => '/search', :method => 'get'}
+    %input{:type => 'text', :name => 'q'}
+    %input{:type => 'submit', :value => 'Search'}
+
+#main{:style => 'clear: both;'}
+  = yield

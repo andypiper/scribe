@@ -1,1 +1,3 @@
-%h1 IRC Logger
+- @channels.each do |channel|
+  %h4
+    %a{:href => "/channel/#{channel.gsub('#', '')}"}= channel

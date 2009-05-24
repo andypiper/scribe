@@ -22,8 +22,9 @@ DataMapper.auto_upgrade!
 
 config = YAML.load(open('scribe.yml').read)
 
-# new
+# index
 get '/' do
+  @channels = repository(:default).adapter.query('SELECT DISTINCT channel FROM messages ORDER BY channel')
   haml :index
 end
 
@@ -37,6 +38,12 @@ end
 get '/nick/:nick' do
   @messages = Message.all(:nick => "#{params[:nick]}")
   haml :nick
+end
+
+# search
+get '/search' do
+  @messages = Message.all(:message.like => "%#{params[:q]}%")
+  haml :search
 end
 
 # create
