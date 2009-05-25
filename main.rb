@@ -18,14 +18,54 @@ class Message
   property :updated_at, DateTime
 end
 
+class ConfigurationStore
+  include DataMapper::Resource
+
+  property :id, Integer, :serial => true  #primary serial key
+  property :name, Text, :nullable => false #cannot be null
+  property :data, Text, :nullable => false #cannot be null
+end
+
 DataMapper.auto_upgrade!
 
-config = YAML.load(open('scribe.yml').read)
+before do
+  @secret = ConfigurationStore.first(:name => 'secret')
+
+  unless @secret or request.path_info =~ /^\/secret/
+    redirect '/secret'
+  end
+end
 
 # index
 get '/' do
   @channels = repository(:default).adapter.query('SELECT DISTINCT channel FROM messages ORDER BY channel')
   haml :index
+end
+
+# manage secret
+get '/secret' do
+  haml :secret
+end
+
+post '/secret' do
+  secret_saved = false
+
+  if params[:new]
+    if @secret
+      if (params[:old] == @secret.data)
+        secret_saved = @secret.update_attributes(:data => params[:new])
+      end
+    else
+      @secret = ConfigurationStore.new(:name => 'secret', :data => params[:new])
+      secret_saved = @secret.save
+    end
+  end
+
+  if secret_saved
+    haml :secret_saved
+  else
+    redirect '/secret'
+  end
 end
 
 # channel
@@ -53,7 +93,7 @@ post '/log' do
                          :channel => params[:channel],
                          :message => params[:message])
 
-  if (params[:secret] == config['secret']) and @message.save
+  if (params[:secret] == @secret.data) and @message.save
     "Saved log entry"
   else
     redirect "/"
