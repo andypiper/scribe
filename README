@@ -1,0 +1,10 @@
+About
+
+Scribe is a no-nonsense lightweight IRC logger in 2 parts.
+1: Ruby script to run in the background and watch your IRC channels
+2: Sinatra webapp to receive messages from bot and interface with user
+
+Setup
+
+Copy the scribe.yml.sample -> scribe.yml and edit settings ... you can put as many rooms int he config as you need.
+Open the webapp and you will be asked for a secret ... use the same secret in your scribe.yml
