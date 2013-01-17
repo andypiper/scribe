@@ -18,10 +18,3 @@ Open the webapp's URL and you will be asked for a secret - use the same secret i
 ## Background
 
 Scribe was originally by [commonthread](https://github.com/commonthread/). This version has been ported to Ruby 1.9 and newer versions of the required gems (Isaac, Yaml, Datamapper etc). 
-
-## TODO
-
-- [x] use Bundler
-- [ ] store and organise data by day
-- [ ] improve user interface
-- [ ] provide Cloud Foundry config

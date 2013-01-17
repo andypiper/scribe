@@ -1,4 +1,5 @@
 ---
+app_url: http://localhost:4567
 secret: AbcdEFg1234
 realname: Scribe Bot
 nick: scribe_bot
