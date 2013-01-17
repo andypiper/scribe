@@ -3,17 +3,19 @@ require 'sinatra'
 require 'dm-core'
 require 'dm-validations'
 require 'dm-timestamps'
+require 'dm-migrations'
+require 'haml'
 
 DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite3:///#{Dir.pwd}/scribe.sqlite3"))
 
 class Message
   include DataMapper::Resource
-  
-  property :id, Integer, :serial => true  #primary serial key
-  property :nick, Text, :nullable => false #cannot be null
-  property :userhost, Text, :nullable => false #cannot be null
-  property :channel, Text, :nullable => false #cannot be null
-  property :message, Text, :nullable => false #cannot be null
+
+  property :id, Serial  #primary serial key
+  property :nick, Text, :required => true #cannot be null
+  property :userhost, Text, :required => true #cannot be null
+  property :channel, Text, :required => true #cannot be null
+  property :message, Text, :required => true #cannot be null
   property :created_at, DateTime
   property :updated_at, DateTime
 end
@@ -21,9 +23,9 @@ end
 class ConfigurationStore
   include DataMapper::Resource
 
-  property :id, Integer, :serial => true  #primary serial key
-  property :name, Text, :nullable => false #cannot be null
-  property :data, Text, :nullable => false #cannot be null
+  property :id, Serial  #primary serial key
+  property :name, Text, :required => true #cannot be null
+  property :data, Text, :required => true #cannot be null
 end
 
 DataMapper.auto_upgrade!
@@ -38,7 +40,7 @@ end
 
 # index
 get '/' do
-  @channels = repository(:default).adapter.query('SELECT DISTINCT channel FROM messages ORDER BY channel')
+  @channels = repository(:default).adapter.select('SELECT DISTINCT channel FROM messages ORDER BY channel')
   haml :index
 end
 

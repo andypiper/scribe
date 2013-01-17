@@ -4,6 +4,7 @@ require 'rubygems'
 require 'net/http'
 require 'uri'
 require 'isaac'
+require 'yaml'
 
 config = YAML.load(open('scribe.yml').read)
 
@@ -15,7 +16,7 @@ configure do |c|
 end
 
 on :connect do
-  config['channels'].each do |channel| 
+  config['channels'].each do |channel|
     join channel
   end
 end
@@ -25,11 +26,11 @@ on :channel, /.*/ do
                       {
                         :secret => config['secret'],
                         :nick => nick,
-                        :userhost => userhost,
+                        :userhost => host,
                         :channel => channel,
                         :message => message
                       }
                      )
 
-  puts "#{channel}: #{nick}: #{message}"
+  #puts "#{channel}: #{nick}: #{message}"
 end
