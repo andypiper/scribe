@@ -5,6 +5,12 @@ require 'dm-validations'
 require 'dm-timestamps'
 require 'dm-migrations'
 require 'haml'
+require 'cfruntime'
+
+if CFRuntime::CloudApp.running_in_cloud?
+  service_props = CFRuntime::CloudApp.service_props 'mysql'
+end
+
 
 DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite3:///#{Dir.pwd}/scribe.sqlite3"))
 
@@ -29,6 +35,8 @@ class ConfigurationStore
 end
 
 DataMapper.auto_upgrade!
+
+set :haml, {:format => :html5}
 
 before do
   @secret = ConfigurationStore.first(:name => 'secret')

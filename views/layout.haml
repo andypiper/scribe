@@ -1,10 +1,19 @@
-%h1{:style => 'float: left; margin-right: 20px;'}
-  %a{:href => '/'}Scribe
+!!! 5
+%html{lang: 'en'}
+  %head
+    %title Scribe IRC Logger
 
-.search
-  %form{:action => '/search', :method => 'get'}
-    %input{:type => 'text', :name => 'q'}
-    %input{:type => 'submit', :value => 'Search'}
+  %body
+    %h1{:style => 'float: left; margin-right: 20px;'}
+      %a{:href => '/'}Scribe
 
-#main{:style => 'clear: both;'}
-  = yield
+    .search
+      %form{:action => '/search', :method => 'get'}
+        %input{:type => 'text', :name => 'q', :placeholder => 'find something...'}
+        %input{:type => 'submit', :value => 'Search'}
+
+    #main{:style => 'clear: both;'}
+      = yield
+
+    %footer{:style => 'font-size: small; position: relative; padding-top: 100px'}
+      %a{:href => 'http://github.com/andypiper/scribe'}fork me on Github

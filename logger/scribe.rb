@@ -6,6 +6,8 @@ require 'uri'
 require 'isaac'
 require 'yaml'
 
+class Scribe
+
 config = YAML.load(open('scribe.yml').read)
 
 configure do |c|
@@ -33,4 +35,6 @@ on :channel, /.*/ do
                      )
 
   #puts "#{channel}: #{nick}: #{message}"
+end
+
 end
