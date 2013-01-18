@@ -1,0 +1,14 @@
+---
+applications:
+- name: scribe
+  framework: rack
+  runtime: ruby19
+  memory: 128M
+  instances: 1
+  url: scribe.${target-base}
+  path: .
+  services:
+    irclogs:
+      vendor: mysql
+      version: '5.1'
+      tier: free

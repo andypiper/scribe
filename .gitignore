@@ -4,4 +4,4 @@ doc
 !*.swf
 *~
 *.sqlite3
-*.yml
+scribe.yml
