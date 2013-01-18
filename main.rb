@@ -8,8 +8,8 @@ require 'haml'
 require 'cfruntime'
 
 if CFRuntime::CloudApp.running_in_cloud?
-  service_props = CFRuntime::CloudApp.service_props 'mysql'
-  DataMapper.setup(:default, "mysql://#{service_props[:username]}:#{service_props[:password]}@#{service_props[:host]}:#{service_props[:port]}/#{service_props[:database]}")
+  @service_props = CFRuntime::CloudApp.service_props 'mysql'
+  DataMapper.setup(:default, "mysql://#{@service_props[:username]}:#{@service_props[:password]}@#{@service_props[:host]}:#{@service_props[:port]}/#{@service_props[:database]}")
 else
   DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite3:///#{Dir.pwd}/scribe.sqlite3"))
 end
